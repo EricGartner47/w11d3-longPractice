@@ -44,6 +44,7 @@ const contentChecker = (req, res, next)=> {
   }
   next()
 }
+
 app.get("/create", csrfProtection, (req, res) => {
   res.render('create-form', { csrfToken: req.csrfToken(), errors: [], user: {}});
 });
@@ -54,6 +55,29 @@ app.post("/create", csrfProtection, contentChecker, (req, res) => {
   const user = {firstName, lastName, email}
   if (req.errors.length > 0){
     res.render('create-form', {csrfToken: req.csrfToken(), errors: req.errors, user})
+  } else {
+    users.push({
+      id: users.length +1,
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmedPassword
+    });
+   res.redirect('/');
+  }
+});
+
+app.get("/create-interesting", csrfProtection, (req, res) => {
+  res.render('create-interesting', { csrfToken: req.csrfToken(), errors: [], user: {}});
+});
+
+
+app.post("/create-interesting", csrfProtection, contentChecker, (req, res) => {
+  const { firstName, lastName, email, password, confirmedPassword } = req.body;
+  const user = {firstName, lastName, email}
+  if (req.errors.length > 0){
+    res.render('create-interesting', {csrfToken: req.csrfToken(), errors: req.errors, user})
   } else {
     users.push({
       id: users.length +1,
