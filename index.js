@@ -25,8 +25,9 @@ app.get("/", (req, res) => {
 });
 
 const contentChecker = (req, res, next)=> {
-  const {firstName, lastName, email, password, confirmedPassword, age, favoriteBeatle } = req.body
+  const {firstName, lastName, email, password, confirmedPassword, age, favoriteBeatle} = req.body
   req.errors = []
+
   if(!firstName){
     req.errors.push('Please provide a first name.')
   }
@@ -42,28 +43,30 @@ const contentChecker = (req, res, next)=> {
   if (confirmedPassword !== password) {
     req.errors.push('The provided values for the password and password confirmation fields did not match.')
   }
-  // if(!age){
-  //   req.errors.push('age is required')
-  // }
-  // if(typeof age !== 'number' && age <= 120 && age >= 0){
-  //   req.errors.push('age must be valid age')
-  // }
-  // if (!favoriteBeatle) {
-  //   req.errors.push('favoriteBeatle is required')
-  // }
-  // if (favoriteBeatle === 'Scooby-Doo') {
-  //   req.errors.push('favoriteBeatle must be a real Beatle member')
-  // }
+  if(!age){
+    req.errors.push('age is required')
+  }
+  if(!parseInt(age) || age >= 120 || age <= 0){
+    req.errors.push('age must be a valid age')
+  }
+  if (!favoriteBeatle) {
+    req.errors.push('favoriteBeatle is required')
+  }
+  if (favoriteBeatle === 'Scooby-Doo') {
+    req.errors.push('favoriteBeatle must be a real Beatle member')
+  }
   next()
 }
 
 // const interestingChecker = (req, res, next) => {
-//   const {age, favoriteBeatle, iceCream} = req.body
+//   const {age, favoriteBeatle} = req.body
 //   contentChecker(req, res, next)
+//   console.log(req.errors)
+//   req.errors =[]
 //   if(!age){
 //     req.errors.push('age is required')
 //   }
-//   if(typeof age !== 'number' && age <= 120 && age >= 0){
+//   if(!parseInt(age) && age <= 120 && age >= 0){
 //     req.errors.push('age must be valid age')
 //   }
 //   if (!favoriteBeatle) {
@@ -72,6 +75,7 @@ const contentChecker = (req, res, next)=> {
 //   if (favoriteBeatle === 'Scooby-Doo') {
 //     req.errors.push('favoriteBeatle must be a real Beatle member')
 //   }
+
 //   next()
 // }
 
@@ -86,7 +90,6 @@ app.post("/create", csrfProtection, contentChecker, (req, res) => {
   if (req.errors.length > 0){
     res.render('create-form', {csrfToken: req.csrfToken(), errors: req.errors, user})
   } else {
-    console.log('Made it here')
     users.push({
       id: users.length +1,
       firstName,
@@ -105,8 +108,9 @@ app.get("/create-interesting", csrfProtection, (req, res) => {
 
 
 app.post("/create-interesting", csrfProtection, contentChecker, (req, res) => {
-  const { firstName, lastName, email, password, confirmedPassword, age, favoriteBeatle, iceCream } = req.body;
+  const { firstName, lastName, email, password, confirmedPassword, age, favoriteBeatle, iceCream} = req.body;
   const user = {firstName, lastName, email, age, favoriteBeatle, iceCream}
+  console.log(favoriteBeatle)
   if (req.errors.length > 0){
     res.render('create-interesting', {csrfToken: req.csrfToken(), errors: req.errors, user})
   } else {
@@ -121,6 +125,7 @@ app.post("/create-interesting", csrfProtection, contentChecker, (req, res) => {
       favoriteBeatle,
       iceCream
     });
+    // console.log('here')
    res.redirect('/');
   }
 });
