@@ -5,16 +5,16 @@ block content
     h2 Add Interesting User
     form(method='post' action='/create-interesting')
     include ./includes/form-inputs.pug
-    label(for="age") Age: 
-    input(type='number' name='age')
-    label(for='favoriteBeatle') Select Favorite Beatle: 
-    select(name='favoriteBeatle')
+    label(for="age") Age:
+    input(type='number' name='age' value=user.age)
+    label(for='favoriteBeatle') Select Favorite Beatle:
+    select(name='favoriteBeatle' value=user.favoriteBeatle)
         option(value='') --Please choose an option--
         option(value='John') John
         option(value='Paul') Paul
         option(value='Ringo') Ringo
         option(value='George') George
         option(value='Scooby-Doo') Scooby-Doo
-    label(for='iceCream') Likes Ice Cream: 
-    input(type='checkbox' name='iceCream')
+    label(for='iceCream') Likes Ice Cream:
+    input(type='checkbox' name='iceCream' value=user.iceCream)
     input(type='submit' value="Create Interesting User")
