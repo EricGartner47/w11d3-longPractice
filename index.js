@@ -16,7 +16,7 @@ const users = [
 ];
 
 app.get("/", (req, res) => {
-  res.render('index', users);
+  res.render('index', {users});
 });
 
 
