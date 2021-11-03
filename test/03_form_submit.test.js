@@ -36,6 +36,7 @@ describe("form-submit", () => {
 
     it("renders li elements for each error message", () => {
       const messages = $("li");
+      // console.log(messages)
       expect(messages.eq(0).text()).to.equal("Please provide a first name.");
       expect(messages.eq(1).text()).to.equal("Please provide a last name.");
       expect(messages.eq(2).text()).to.equal("Please provide an email.");
