@@ -197,7 +197,7 @@ describe("submit-interesting", () => {
         ...formData,
         email: null
       });
-
+      
       expect($("option[selected='selected']").attr("value")).to.equal(
         formData.favoriteBeatle
       );

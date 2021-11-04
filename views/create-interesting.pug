@@ -10,12 +10,26 @@ block content
         label(for='favoriteBeatle') Select Favorite Beatle:
         select(name='favoriteBeatle' value=user.favoriteBeatle)
             option(value='') --Please choose an option--
-            if user.favoriteBeatle === John
-            option(value='John') John
-            option(value='Paul') Paul
-            option(value='Ringo') Ringo
-            option(value='George') George
-            option(value='Scooby-Doo') Scooby-Doo
+            if (user.favoriteBeatle === 'John')
+                option(value='John' selected='selected') John
+            else
+                option(value='John') John
+            if (user.favoriteBeatle === 'Paul')
+                option(value='Paul' selected='selected') Paul
+            else
+                option(value='Paul') Paul
+            if (user.favoriteBeatle === 'Ringo')
+                option(value='Ringo' selected='selected') Ringo
+            else
+                option(value='Ringo') Ringo
+            if (user.favoriteBeatle === 'George')
+                option(value='George' selected='selected') George
+            else
+                option(value='George') George
+            if (user.favoriteBeatle === 'Scooby-Doo')
+                option(value='Scooby-Doo' selected='selected') Scooby-Doo
+            else
+                option(value='Scooby-Doo') Scooby-Doo
         label(for='iceCream') Likes Ice Cream:
-        input(type='checkbox' name='iceCream' value=user.iceCream)
+        input(type='checkbox' name='iceCream' checked=user.iceCream)
         input(type='submit' value="Create Interesting User")
